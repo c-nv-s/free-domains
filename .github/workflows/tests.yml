@@ -41,7 +41,6 @@ jobs:
 
       - uses: walbo/validate-json@v1.1.0
         with:
-          schema: ./dns-records.schema.json
           schema-version: draft-07
           strict: false
           files: ./dns-records.json

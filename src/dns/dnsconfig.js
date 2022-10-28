@@ -7,6 +7,10 @@ var proxyOn = {"cloudflare_proxy": "on"}
 var data = require('./../../dns-records.json')
 
 for (var rootDomainName in data) {
+  if (rootDomainName === '$schema') {
+    continue
+  }
+
   var records = []
 
   for (var subDomainName in data[rootDomainName]) {
@@ -19,8 +23,8 @@ for (var rootDomainName in data) {
     var txt = data[rootDomainName][subDomainName]['txt']
 
     if (txt) {
-      for (var _txt in txt) {
-        records.push(TXT(subDomainName, txt[_txt])) // https://stackexchange.github.io/dnscontrol/js#TXT
+      for (var v in txt) {
+        records.push(TXT(subDomainName, txt[v])) // https://stackexchange.github.io/dnscontrol/js#TXT
       }
     }
 
@@ -33,16 +37,16 @@ for (var rootDomainName in data) {
     var a = data[rootDomainName][subDomainName]['a']
 
     if (a) {
-      for (var _a in a) {
-        records.push(A(subDomainName, IP(a[_a]), proxyState)) // https://stackexchange.github.io/dnscontrol/js#A
+      for (var v in a) {
+        records.push(A(subDomainName, IP(a[v]), proxyState)) // https://stackexchange.github.io/dnscontrol/js#A
       }
     }
 
     var aaaa = data[rootDomainName][subDomainName]['aaaa']
 
     if (aaaa) {
-      for (var _aaaa in aaaa) {
-        records.push(AAAA(subDomainName, aaaa[_aaaa], proxyState)) // https://stackexchange.github.io/dnscontrol/js#AAAA
+      for (var v in aaaa) {
+        records.push(AAAA(subDomainName, aaaa[v], proxyState)) // https://stackexchange.github.io/dnscontrol/js#AAAA
       }
     }
   }

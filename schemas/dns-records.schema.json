@@ -2,6 +2,11 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string"
+    }
+  },
   "patternProperties": {
     "^[a-z0-9_.-]{3,}$": {
       "type": "object",

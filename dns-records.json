@@ -1,4 +1,5 @@
 {
+  "$schema": "./schemas/dns-records.schema.json",
   "1bt.uk": {
     "@": {
       "txt": [
