@@ -28,10 +28,19 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: koenrh/dnscontrol-action@v3
-        with:
-          args: check
-          config_file: ./src/dns/dnsconfig.js
+      - name: Install DNSControl
+        run: |
+          curl -SsL https://github.com/StackExchange/dnscontrol/releases/download/v${VERSION}/dnscontrol-${VERSION}.amd64.deb -o ./dist.deb
+          sudo dpkg -i ./dist.deb
+        env:
+          VERSION: 3.20.0
+
+      - run: dnscontrol check --config ./src/dns/dnsconfig.js
+
+#      - uses: koenrh/dnscontrol-action@v3
+#        with:
+#          args: check
+#          config_file: ./src/dns/dnsconfig.js
 
   validate-schemas:
     name: Validate schemas
