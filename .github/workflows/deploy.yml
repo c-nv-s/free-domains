@@ -1,0 +1,29 @@
+name: deploy
+
+on:
+  workflow_dispatch: {}
+  push:
+    branches: [master, main]
+    paths: [dns-records, .github/workflows/deploy.yml]
+
+concurrency:
+  group: ${{ github.ref }}-deploy
+  cancel-in-progress: false
+
+jobs:
+  check:
+    name: DNSControl push
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - run: |
+          echo '{"cloudflare": {"TYPE": "CLOUDFLAREAPI","accountid": "$CF_ACCOUNT_ID", "apitoken": "$CF_API_TOKEN"}}' > ./creds.json
+        env:
+          CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+
+      - uses: koenrh/dnscontrol-action@v3
+        with:
+          args: push
+          config_file: ./src/dns/dnsconfig.js

@@ -9,10 +9,10 @@ on:
     paths-ignore: ['**.md']
 
 concurrency:
-  group: ${{ github.ref }}
+  group: ${{ github.ref }}-tests
   cancel-in-progress: true
 
-jobs: # Docs: <https://git.io/JvxXE>
+jobs:
   gitleaks:
     name: Gitleaks
     runs-on: ubuntu-latest
