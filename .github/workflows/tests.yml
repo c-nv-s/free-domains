@@ -14,7 +14,7 @@ concurrency:
 
 jobs:
   gitleaks:
-    name: Gitleaks
+    name: GitLeaks
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -31,16 +31,11 @@ jobs:
       - name: Install DNSControl
         run: |
           curl -SsL https://github.com/StackExchange/dnscontrol/releases/download/v${VERSION}/dnscontrol-${VERSION}.amd64.deb -o ./dist.deb
-          sudo dpkg -i ./dist.deb
+          sudo dpkg --force-unsafe-io -i ./dist.deb
         env:
           VERSION: 3.20.0
 
       - run: dnscontrol check --config ./src/dns/dnsconfig.js
-
-#      - uses: koenrh/dnscontrol-action@v3
-#        with:
-#          args: check
-#          config_file: ./src/dns/dnsconfig.js
 
   validate-schemas:
     name: Validate schemas

@@ -12,18 +12,23 @@ concurrency:
 
 jobs:
   check:
-    name: DNSControl push
+    name: Deploy DNS changes
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
 
-      - run: |
-          echo '{"cloudflare": {"TYPE": "CLOUDFLAREAPI","accountid": "$CF_ACCOUNT_ID", "apitoken": "$CF_API_TOKEN"}}' > ./creds.json
-
-      - uses: koenrh/dnscontrol-action@v3
+      - name: Install DNSControl
+        run: |
+          curl -SsL https://github.com/StackExchange/dnscontrol/releases/download/v${VERSION}/dnscontrol-${VERSION}.amd64.deb -o ./dist.deb
+          sudo dpkg -i ./dist.deb
         env:
-          CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
-          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
-        with:
-          args: push
-          config_file: ./src/dns/dnsconfig.js
+          VERSION: 3.20.0
+
+      - name: Create credentials file
+        run: |
+          echo '{"cloudflare":{"TYPE":"CLOUDFLAREAPI","accountid":"$CF_ID","apitoken":"$CF_TOKEN"}}' > ./creds.json
+
+      - run: dnscontrol push --config ./src/dns/dnsconfig.js
+        env:
+          CF_ID: ${{ secrets.CF_ACCOUNT_ID }}
+          CF_TOKEN: ${{ secrets.CF_API_TOKEN }}
