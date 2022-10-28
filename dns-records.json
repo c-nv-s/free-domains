@@ -1,0 +1,35 @@
+{
+  "1bt.uk": {
+    "@": {
+      "txt": [
+        "v=spf1 -all"
+      ]
+    },
+    "_dmarc": {
+      "txt": [
+        "v=DMARC1; p=reject; sp=reject; adkim=s; aspf=s;"
+      ]
+    },
+    "*._domainkey": {
+      "txt": [
+        "v=DKIM1; p="
+      ]
+    },
+    "test-subdomain": {
+      "proxy": false,
+      "a": [
+        "1.2.111.111",
+        "8.8.8.8"
+      ],
+      "aaaa": [
+        "::1"
+      ]
+    },
+    "test-subdomain2": {
+      "a": [
+        "1.2.111.111",
+        "8.8.8.8"
+      ]
+    }
+  }
+}

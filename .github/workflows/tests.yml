@@ -21,3 +21,14 @@ jobs: # Docs: <https://git.io/JvxXE>
         with: {fetch-depth: 0}
 
       - uses: gacts/gitleaks@v1
+
+  check:
+    name: DNSControl check
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: koenrh/dnscontrol-action@v3
+        with:
+          args: check
+          config_file: ./src/dns/dnsconfig.js
