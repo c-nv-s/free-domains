@@ -43,4 +43,5 @@ jobs: # Docs: <https://git.io/JvxXE>
         with:
           schema: ./dns-records.schema.json
           schema-version: draft-07
+          strict: false
           files: ./dns-records.json
