@@ -17,12 +17,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install DNSControl
-        run: |
-          curl -SsL https://github.com/StackExchange/dnscontrol/releases/download/v${VERSION}/dnscontrol-${VERSION}.amd64.deb -o ./dist.deb
-          sudo dpkg -i ./dist.deb
-        env:
-          VERSION: 3.20.0
+      - uses: gacts/install-dnscontrol@v1
 
       - name: Create credentials file
         run: |
