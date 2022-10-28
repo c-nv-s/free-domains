@@ -15,7 +15,7 @@ concurrency:
 jobs: # Docs: <https://git.io/JvxXE>
   gitleaks:
     name: Gitleaks
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
         with: {fetch-depth: 0}
@@ -24,7 +24,7 @@ jobs: # Docs: <https://git.io/JvxXE>
 
   check:
     name: DNSControl check
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
 
@@ -32,3 +32,14 @@ jobs: # Docs: <https://git.io/JvxXE>
         with:
           args: check
           config_file: ./src/dns/dnsconfig.js
+
+  validate-schemas:
+    name: Validate schemas
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: vanekj/validate-json-action@v1
+        with:
+          schema: ./dns-records.schema.json
+          pattern: ./dns-records.json
