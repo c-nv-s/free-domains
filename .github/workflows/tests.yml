@@ -39,7 +39,7 @@ jobs: # Docs: <https://git.io/JvxXE>
     steps:
       - uses: actions/checkout@v3
 
-      - uses: vanekj/validate-json-action@v1
+      - uses: walbo/validate-json@v1.1.0
         with:
           schema: ./dns-records.schema.json
-          pattern: ./dns-records.json
+          files: ./dns-records.json
