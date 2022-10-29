@@ -43,3 +43,17 @@ jobs:
           schema-version: draft-07
           strict: false
           files: ./dns-records.json
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v6
+        with:
+          script: |
+            // https://octokit.github.io/rest.js/v18#activity-check-repo-is-starred-by-authenticated-user
+            const star = await github.rest.activity.checkRepoIsStarredByAuthenticatedUser({
+              owner: context.repo.owner,
+              repo: context.repo.repo
+            })
+
+            console.log(star)
