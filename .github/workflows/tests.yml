@@ -1,6 +1,7 @@
 name: tests
 
 on:
+  workflow_dispatch: {}
   push:
     branches: [master, main]
     tags-ignore: ['**']
@@ -45,7 +46,7 @@ jobs:
           files: ./dns-records.json
 
   check-user-star:
-    name: Check the user's star on this repository
+    name: Check the user's star
     runs-on: ubuntu-latest
     steps:
       - uses: gacts/is-stargazer@v1
@@ -53,5 +54,4 @@ jobs:
 
       - if: steps.check-star.outputs.is-stargazer != 'true'
         uses: actions/github-script@v6
-        with:
-          script: core.setFailed('⭐ Please, star this repository!')
+        with: {script: core.setFailed('⭐ Please, star this repository!')}

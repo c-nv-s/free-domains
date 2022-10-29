@@ -1,0 +1,29 @@
+name: website
+
+on:
+  push:
+    branches: [master, main]
+    paths: ['src/1bt.uk/**', .github/workflows/website.yml]
+
+concurrency:
+  group: ${{ github.ref }}-website
+  cancel-in-progress: true
+
+jobs:
+  update:
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/configure-pages@v2
+
+      - uses: actions/upload-pages-artifact@v1
+        with: {path: src/1bt.uk}
+
+      - {uses: actions/deploy-pages@v1, id: deployment}
