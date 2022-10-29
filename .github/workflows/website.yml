@@ -11,6 +11,7 @@ concurrency:
 
 jobs:
   update:
+    name: Publish website
     permissions:
       pages: write
       id-token: write

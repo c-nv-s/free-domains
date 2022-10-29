@@ -5,9 +5,9 @@ on:
   push:
     branches: [master, main]
     tags-ignore: ['**']
-    paths-ignore: ['**.md']
+    paths-ignore: ['**.md', 'src/1bt.uk/**']
   pull_request:
-    paths-ignore: ['**.md']
+    paths-ignore: ['**.md', 'src/1bt.uk/**']
 
 concurrency:
   group: ${{ github.ref }}-tests
